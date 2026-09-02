@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Bizora — Dashboard</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- =========================
+       SIDEBAR
+  ========================== -->
+
+  <aside class="sidebar">
+
+    <a href="dashboard.html" class="dashboard-logo">
+      <span class="logo-mark">B</span>
+      <span>Bizora</span>
+    </a>
+
+    <nav class="dashboard-nav">
+
+      <a href="dashboard.html" class="nav-item active">
+        <span>⌂</span>
+        Dashboard
+      </a>
+
+      <a href="customers.html" class="nav-item">
+        <span>👥</span>
+        Customers
+      </a>
+
+      <a href="appointments.html" class="nav-item">
+        <span>📅</span>
+        Appointments
+      </a>
+
+      <a href="payments.html" class="nav-item">
+        <span>💳</span>
+        Payments
+      </a>
+
+      <a href="invoices.html" class="nav-item">
+        <span>📄</span>
+        Invoices
+      </a>
+
+      <a href="reports.html" class="nav-item">
+        <span>📊</span>
+        Reports
+      </a>
+
+      <a href="staff.html" class="nav-item">
+        <span>👤</span>
+        Staff
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <a href="settings.html" class="nav-item">
+        <span>⚙</span>
+        Settings
+      </a>
+
+      <button class="logout-button" onclick="logout()">
+        <span>↪</span>
+        Log out
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- =========================
+       MAIN AREA
+  ========================== -->
+
+  <main class="dashboard-main">
+
+    <!-- Top Bar -->
+
+    <header class="dashboard-header">
+
+      <div>
+        <h1>Dashboard</h1>
+        <p>Here's what's happening with your business today.</p>
+      </div>
+
+      <div class="dashboard-user">
+
+        <div class="notification">
+          🔔
+          <span></span>
+        </div>
+
+        <div class="user-avatar">
+          B
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- =========================
+         BUSINESS WELCOME
+    ========================== -->
+
+    <section class="welcome-card">
+
+      <div>
+
+    <span class="welcome-small">
+      BIZORA DASHBOARD
+    </span>
+
+    <h2 id="welcomeName">Welcome back 👋</h2>
+
+<p id="businessName">
+  Your business
+</p>
+        <p>
+          Here's an overview of your business performance.
+        </p>
+
+      </div>
+
+      <button
+  class="btn btn-white"
+  onclick="window.location.href='customers.html'"
+>
+  + Add Customer
+</button>
+
+    </section>
+
+
+    <!-- =========================
+         STAT CARDS
+    ========================== -->
+
+    <section class="dashboard-stats">
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+          <span>Total Revenue</span>
+          <div class="stat-icon">₹</div>
+        </div>
+
+        <strong id="dashboardRevenue">₹0.00</strong>
+
+        <div class="stat-change positive-change">
+          ↑ 18.4%
+          <span>vs last month</span>
+        </div>
+
+      </div>
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+          <span>Customers</span>
+          <div class="stat-icon">👥</div>
+        </div>
+
+        <strong id="dashboardCustomers">0</strong>
+
+        <div class="stat-change positive-change">
+          ↑ 12.8%
+          <span>vs last month</span>
+        </div>
+
+      </div>
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+          <span>Appointments</span>
+          <div class="stat-icon">📅</div>
+        </div>
+
+        <strong id="dashboardAppointments">0</strong>
+
+        <div class="stat-change positive-change">
+          ↑ 8.2%
+          <span>vs last month</span>
+        </div>
+
+      </div>
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+          <span>Pending Payments</span>
+          <div class="stat-icon">💰</div>
+        </div>
+
+        <strong id="dashboardPendingPayments">₹0.00</strong>
+
+        <div class="stat-change negative-change">
+          6 pending
+          <span>payments</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         DASHBOARD GRID
+    ========================== -->
+
+    <section class="dashboard-grid">
+
+
+      <!-- Revenue -->
+
+<div class="dashboard-panel revenue-panel">
+
+  <div class="panel-header">
+
+    <div>
+      <h3>Revenue Overview</h3>
+      <p>Monthly revenue performance</p>
+    </div>
+
+    <select>
+      <option>This Year</option>
+      <option>This Month</option>
+      <option>This Week</option>
+    </select>
+
+  </div>
+
+
+  <div class="revenue-chart">
+
+    <div class="chart-y">
+      <span>₹60k</span>
+      <span>₹45k</span>
+      <span>₹30k</span>
+      <span>₹15k</span>
+      <span>₹0</span>
+    </div>
+
+
+    <div class="chart-area">
+
+      <div
+        class="chart-bars"
+        id="dashboardRevenueChart"
+      ></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+      <!-- Upcoming Appointments -->
+
+      <div class="dashboard-panel">
+
+        <div class="panel-header">
+
+          <div>
+            <h3>Upcoming Appointments</h3>
+            <p>Your next scheduled appointments</p>
+          </div>
+
+          <button
+  class="text-button"
+  onclick="window.location.href='appointments.html'"
+>
+  View all
+</button>
+        </div>
+
+
+        <div class="appointments-list" id="dashboardUpcomingAppointments">
+
+
+        </div>
+
+      </div>
+
+
+      <!-- Recent Customers -->
+
+      <div class="dashboard-panel">
+
+        <div class="panel-header">
+
+          <div>
+            <h3>Recent Customers</h3>
+            <p>Latest customers added</p>
+          </div>
+
+          <button
+  class="text-button"
+  onclick="window.location.href='customers.html'"
+>
+  View all
+</button>
+        </div>
+
+
+        <div class="customers-list" id="dashboardRecentCustomers">
+
+
+        </div>
+
+      </div>
+
+
+      <!-- Quick Actions -->
+
+      <div class="dashboard-panel">
+
+        <div class="panel-header">
+
+          <div>
+            <h3>Quick Actions</h3>
+            <p>Common business tasks</p>
+          </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+          <button onclick="window.location.href='customers.html'">
+            <span>👥</span>
+            <strong>Add Customer</strong>
+            <small>Create a customer profile</small>
+          </button>
+
+
+          <button onclick="window.location.href='appointments.html'">
+            <span>📅</span>
+            <strong>New Appointment</strong>
+            <small>Schedule an appointment</small>
+          </button>
+
+
+          <button onclick="window.location.href='invoices.html'">
+  <span>📄</span>
+  <strong>Create Invoice</strong>
+  <small>Generate a new invoice</small>
+</button>
+
+
+          <button onclick="window.location.href='reports.html'">
+  <span>📊</span>
+  <strong>View Reports</strong>
+  <small>Analyze your business</small>
+</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- Dashboard JavaScript -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+
+</body>
+
+</html>
