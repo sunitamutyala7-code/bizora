@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Bizora — Reports</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+<a href="dashboard.html" class="dashboard-logo">
+  <span class="logo-mark">B</span>
+  <span>Bizora</span>
+</a>
+
+<nav class="dashboard-nav">
+
+  <a href="dashboard.html" class="nav-item">
+    <span>⌂</span>
+    Dashboard
+  </a>
+
+  <a href="customers.html" class="nav-item">
+    <span>👥</span>
+    Customers
+  </a>
+
+  <a href="appointments.html" class="nav-item">
+    <span>📅</span>
+    Appointments
+  </a>
+
+  <a href="payments.html" class="nav-item">
+    <span>💳</span>
+    Payments
+  </a>
+
+  <a href="invoices.html" class="nav-item">
+    <span>📄</span>
+    Invoices
+  </a>
+
+  <a href="reports.html" class="nav-item active">
+    <span>📊</span>
+    Reports
+  </a>
+
+  <a href="staff.html" class="nav-item">
+    <span>👤</span>
+    Staff
+  </a>
+
+</nav>
+
+<div class="sidebar-bottom">
+
+  <a href="settings.html" class="nav-item">
+    <span>⚙</span>
+    Settings
+  </a>
+
+  <button
+    class="logout-button"
+    onclick="logout()"
+  >
+    <span>↪</span>
+    Log out
+  </button>
+
+</div>
+
+  </aside>
+
+  <!-- MAIN -->
+
+  <main class="dashboard-main">
+
+<header class="dashboard-header">
+
+  <div>
+
+    <h1>Reports</h1>
+
+    <p>
+      Analyze your business performance and activity.
+    </p>
+
+  </div>
+
+  <button
+    class="btn btn-primary"
+    onclick="generateReport()"
+  >
+    Generate Report
+  </button>
+
+</header>
+
+
+<!-- FILTERS -->
+
+<div class="dashboard-panel">
+
+  <div class="panel-header">
+
+    <div>
+
+      <h3>Report Period</h3>
+
+      <p>
+        Select the period you want to analyze.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div
+    style="
+      display:flex;
+      gap:15px;
+      flex-wrap:wrap;
+      padding-top:10px;
+    "
+  >
+
+    <div class="form-group">
+
+      <label for="reportPeriod">
+        Period
+      </label>
+
+      <select id="reportPeriod">
+
+        <option value="this_month">
+          This Month
+        </option>
+
+        <option value="last_month">
+          Last Month
+        </option>
+
+        <option value="this_year">
+          This Year
+        </option>
+
+        <option value="all_time">
+          All Time
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="reportType">
+        Report Type
+      </label>
+
+      <select id="reportType">
+
+        <option value="overview">
+          Business Overview
+        </option>
+
+        <option value="revenue">
+          Revenue Report
+        </option>
+
+        <option value="customers">
+          Customer Report
+        </option>
+
+        <option value="appointments">
+          Appointment Report
+        </option>
+
+        <option value="payments">
+          Payment Report
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- STATISTICS -->
+
+<section class="dashboard-stats">
+
+  <div class="dashboard-stat">
+
+    <div class="stat-top">
+
+      <span>Total Revenue</span>
+
+      <div class="stat-icon">
+        ₹
+      </div>
+
+    </div>
+
+    <strong id="reportRevenue">
+      ₹0
+    </strong>
+
+    <div class="stat-change positive-change">
+      Revenue generated
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-stat">
+
+    <div class="stat-top">
+
+      <span>Customers</span>
+
+      <div class="stat-icon">
+        👥
+      </div>
+
+    </div>
+
+    <strong id="reportCustomers">
+      0
+    </strong>
+
+    <div class="stat-change">
+      Total customers
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-stat">
+
+    <div class="stat-top">
+
+      <span>Appointments</span>
+
+      <div class="stat-icon">
+        📅
+      </div>
+
+    </div>
+
+    <strong id="reportAppointments">
+      0
+    </strong>
+
+    <div class="stat-change">
+      Total appointments
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-stat">
+
+    <div class="stat-top">
+
+      <span>Payments</span>
+
+      <div class="stat-icon">
+        💳
+      </div>
+
+    </div>
+
+    <strong id="reportPayments">
+      ₹0
+    </strong>
+
+    <div class="stat-change">
+      Total payments
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- REVENUE -->
+
+<div class="dashboard-panel">
+
+  <div class="panel-header">
+
+    <div>
+
+      <h3>
+        Revenue Overview
+      </h3>
+
+      <p>
+        Revenue generated from paid invoices.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="revenue-chart"
+    style="min-height:280px;"
+  >
+
+    <div class="chart-y">
+
+      <span>₹60k</span>
+      <span>₹45k</span>
+      <span>₹30k</span>
+      <span>₹15k</span>
+      <span>₹0</span>
+
+    </div>
+
+
+    <div class="chart-area">
+
+      <div class="chart-bars">
+
+        <div class="dashboard-bar" style="height:35%">
+          <span>Jan</span>
+        </div>
+
+        <div class="dashboard-bar" style="height:48%">
+          <span>Feb</span>
+        </div>
+
+        <div class="dashboard-bar" style="height:42%">
+          <span>Mar</span>
+        </div>
+
+        <div class="dashboard-bar" style="height:61%">
+          <span>Apr</span>
+        </div>
+
+        <div class="dashboard-bar" style="height:55%">
+          <span>May</span>
+        </div>
+
+        <div class="dashboard-bar" style="height:72%">
+          <span>Jun</span>
+        </div>
+
+        <div class="dashboard-bar" style="height:86%">
+          <span>Jul</span>
+        </div>
+
+        <div class="dashboard-bar" style="height:79%">
+          <span>Aug</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- BUSINESS SUMMARY -->
+
+<section class="dashboard-grid">
+
+
+  <!-- CUSTOMER SUMMARY -->
+
+  <div class="dashboard-panel">
+
+    <div class="panel-header">
+
+      <div>
+
+        <h3>
+          Customer Summary
+        </h3>
+
+        <p>
+          Customer activity overview.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div style="padding:10px 0;">
+
+      <div class="customer-row">
+
+        <div class="customer-avatar">
+          👥
+        </div>
+
+        <div>
+
+          <strong>
+            Total Customers
+          </strong>
+
+          <span>
+            All registered customers
+          </span>
+
+        </div>
+
+        <strong
+          id="summaryCustomers"
+          style="margin-left:auto;"
+        >
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="customer-row">
+
+        <div class="customer-avatar">
+          +
+        </div>
+
+        <div>
+
+          <strong>
+            New Customers
+          </strong>
+
+          <span>
+            Added during selected period
+          </span>
+
+        </div>
+
+        <strong
+          id="newCustomers"
+          style="margin-left:auto;"
+        >
+          0
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- APPOINTMENT SUMMARY -->
+
+  <div class="dashboard-panel">
+
+    <div class="panel-header">
+
+      <div>
+
+        <h3>
+          Appointment Summary
+        </h3>
+
+        <p>
+          Appointment activity overview.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div style="padding:10px 0;">
+
+      <div class="customer-row">
+
+        <div class="customer-avatar">
+          ✓
+        </div>
+
+        <div>
+
+          <strong>
+            Confirmed
+          </strong>
+
+          <span>
+            Confirmed appointments
+          </span>
+
+        </div>
+
+        <strong
+          id="confirmedAppointments"
+          style="margin-left:auto;"
+        >
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="customer-row">
+
+        <div class="customer-avatar">
+          ⏳
+        </div>
+
+        <div>
+
+          <strong>
+            Pending
+          </strong>
+
+          <span>
+            Awaiting confirmation
+          </span>
+
+        </div>
+
+        <strong
+          id="pendingAppointments"
+          style="margin-left:auto;"
+        >
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="customer-row">
+
+        <div class="customer-avatar">
+          ×
+        </div>
+
+        <div>
+
+          <strong>
+            Cancelled
+          </strong>
+
+          <span>
+            Cancelled appointments
+          </span>
+
+        </div>
+
+        <strong
+          id="cancelledAppointments"
+          style="margin-left:auto;"
+        >
+          0
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- INVOICE SUMMARY -->
+
+<section class="dashboard-stats">
+
+  <div class="dashboard-stat">
+
+    <div class="stat-top">
+
+      <span>Total Invoices</span>
+
+      <div class="stat-icon">
+        📄
+      </div>
+
+    </div>
+
+    <strong id="reportInvoices">
+      0
+    </strong>
+
+    <div class="stat-change">
+      All invoices
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-stat">
+
+    <div class="stat-top">
+
+      <span>Paid Invoices</span>
+
+      <div class="stat-icon">
+        ✓
+      </div>
+
+    </div>
+
+    <strong id="reportPaidInvoices">
+      0
+    </strong>
+
+    <div class="stat-change">
+      Successfully paid
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-stat">
+
+    <div class="stat-top">
+
+      <span>Pending Invoices</span>
+
+      <div class="stat-icon">
+        ⏳
+      </div>
+
+    </div>
+
+    <strong id="reportPendingInvoices">
+      0
+    </strong>
+
+    <div class="stat-change">
+      Awaiting payment
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-stat">
+
+    <div class="stat-top">
+
+      <span>Overdue Invoices</span>
+
+      <div class="stat-icon">
+        !
+      </div>
+
+    </div>
+
+    <strong id="reportOverdueInvoices">
+      0
+    </strong>
+
+    <div class="stat-change">
+      Payment overdue
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- REPORT MESSAGE -->
+
+<div
+  id="reportMessage"
+  class="dashboard-panel"
+  style="display:none;"
+>
+
+  <h3>
+    Report Generated
+  </h3>
+
+  <p>
+    Your report is ready.
+  </p>
+
+</div>
+
+  </main>
+
+  <!-- GENERATE REPORT -->
+
+  <script>
+
+    function generateReport() {
+
+      const message =
+        document.getElementById(
+          "reportMessage"
+        );
+
+      if (message) {
+
+        message.style.display =
+          "block";
+
+        message.scrollIntoView({
+          behavior: "smooth"
+        });
+
+      }
+
+    }
+
+  </script>
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
