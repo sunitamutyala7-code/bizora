@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Bizora — Staff</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- ==========================================
+       SIDEBAR
+  =========================================== -->
+
+  <aside class="sidebar">
+
+    <a href="dashboard.html" class="dashboard-logo">
+      <span class="logo-mark">B</span>
+      <span>Bizora</span>
+    </a>
+
+
+    <nav class="dashboard-nav">
+
+      <a href="dashboard.html" class="nav-item">
+        <span>⌂</span>
+        Dashboard
+      </a>
+
+      <a href="customers.html" class="nav-item">
+        <span>👥</span>
+        Customers
+      </a>
+
+      <a href="appointments.html" class="nav-item">
+        <span>📅</span>
+        Appointments
+      </a>
+
+      <a href="payments.html" class="nav-item">
+        <span>💳</span>
+        Payments
+      </a>
+
+      <a href="invoices.html" class="nav-item">
+        <span>📄</span>
+        Invoices
+      </a>
+
+      <a href="reports.html" class="nav-item">
+        <span>📊</span>
+        Reports
+      </a>
+
+      <a href="staff.html" class="nav-item active">
+        <span>👤</span>
+        Staff
+      </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+      <a href="settings.html" class="nav-item">
+        <span>⚙</span>
+        Settings
+      </a>
+
+      <button
+        class="logout-button"
+        onclick="logout()"
+      >
+        <span>↪</span>
+        Log out
+      </button>
+
+    </div>
+
+  </aside>
+
+
+
+  <!-- ==========================================
+       MAIN AREA
+  =========================================== -->
+
+  <main class="dashboard-main">
+
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+      <div>
+
+        <h1>Staff</h1>
+
+        <p>
+          Manage your team members and staff information.
+        </p>
+
+      </div>
+
+
+      <button
+        class="btn btn-primary"
+        onclick="openStaffForm()"
+      >
+        + Add Staff
+      </button>
+
+    </header>
+
+
+
+    <!-- ==========================================
+         STAFF STATISTICS
+    =========================================== -->
+
+    <section class="dashboard-stats">
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+
+          <span>Total Staff</span>
+
+          <div class="stat-icon">
+            👤
+          </div>
+
+        </div>
+
+        <strong id="totalStaff">
+          0
+        </strong>
+
+        <div class="stat-change">
+          Team members
+        </div>
+
+      </div>
+
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+
+          <span>Active Staff</span>
+
+          <div class="stat-icon">
+            ✓
+          </div>
+
+        </div>
+
+        <strong id="activeStaff">
+          0
+        </strong>
+
+        <div class="stat-change positive-change">
+          Currently active
+        </div>
+
+      </div>
+
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+
+          <span>On Leave</span>
+
+          <div class="stat-icon">
+            🕐
+          </div>
+
+        </div>
+
+        <strong id="staffOnLeave">
+          0
+        </strong>
+
+        <div class="stat-change">
+          Currently unavailable
+        </div>
+
+      </div>
+
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+
+          <span>Roles</span>
+
+          <div class="stat-icon">
+            🔑
+          </div>
+
+        </div>
+
+        <strong id="staffRoles">
+          0
+        </strong>
+
+        <div class="stat-change">
+          Different roles
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         STAFF LIST
+    =========================================== -->
+
+    <div class="dashboard-panel">
+
+
+      <div class="panel-header">
+
+        <div>
+
+          <h3>
+            Team Members
+          </h3>
+
+          <p id="staffCount">
+            No staff members yet
+          </p>
+
+        </div>
+
+
+        <input
+          type="search"
+          id="staffSearch"
+          placeholder="Search staff..."
+          oninput="searchStaff()"
+        >
+
+      </div>
+
+
+
+      <!-- STAFF LIST -->
+
+      <div
+        id="staffList"
+        class="customers-list"
+      >
+
+        <div
+          style="
+            text-align:center;
+            padding:40px;
+            color:#667085;
+          "
+        >
+
+          <div
+            style="
+              font-size:42px;
+              margin-bottom:10px;
+            "
+          >
+            👤
+          </div>
+
+          <h3>
+            No staff members yet
+          </h3>
+
+          <p>
+            Add your first team member to get started.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+
+  <!-- ==========================================
+       STAFF MODAL
+  =========================================== -->
+
+  <div
+    id="staffModal"
+    style="
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.45);
+      align-items:center;
+      justify-content:center;
+      z-index:1000;
+      padding:20px;
+    "
+  >
+
+    <div
+      style="
+        background:white;
+        width:100%;
+        max-width:500px;
+        padding:30px;
+        border-radius:20px;
+        box-shadow:0 20px 60px rgba(0,0,0,0.18);
+        max-height:90vh;
+        overflow-y:auto;
+      "
+    >
+
+
+      <!-- MODAL HEADER -->
+
+      <div
+        style="
+          display:flex;
+          justify-content:space-between;
+          align-items:flex-start;
+          margin-bottom:24px;
+        "
+      >
+
+        <div>
+
+          <h2
+            id="staffModalTitle"
+            style="margin:0;"
+          >
+            Add Staff
+          </h2>
+
+          <p
+            style="
+              color:#667085;
+              margin:6px 0 0;
+            "
+          >
+            Add a team member to your business.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          onclick="closeStaffForm()"
+          style="
+            border:none;
+            background:none;
+            font-size:26px;
+            cursor:pointer;
+          "
+        >
+          ×
+        </button>
+
+      </div>
+
+
+
+      <!-- STAFF FORM -->
+
+      <form id="staffForm">
+
+
+        <!-- NAME -->
+
+        <div class="form-group">
+
+          <label for="staffName">
+            Full name
+          </label>
+
+          <input
+            type="text"
+            id="staffName"
+            placeholder="Enter staff name"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+          <label for="staffEmail">
+            Email address
+          </label>
+
+          <input
+            type="email"
+            id="staffEmail"
+            placeholder="staff@example.com"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- PHONE -->
+
+        <div class="form-group">
+
+          <label for="staffPhone">
+            Phone
+          </label>
+
+          <input
+            type="tel"
+            id="staffPhone"
+            placeholder="Phone number"
+          >
+
+        </div>
+
+
+
+        <!-- ROLE -->
+
+        <div class="form-group">
+
+          <label for="staffRole">
+            Role
+          </label>
+
+          <select id="staffRole" required>
+
+            <option value="">
+              Select role
+            </option>
+
+            <option value="Manager">
+              Manager
+            </option>
+
+            <option value="Employee">
+              Employee
+            </option>
+
+            <option value="Receptionist">
+              Receptionist
+            </option>
+
+            <option value="Accountant">
+              Accountant
+            </option>
+
+            <option value="Other">
+              Other
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- STATUS -->
+
+        <div class="form-group">
+
+          <label for="staffStatus">
+            Status
+          </label>
+
+          <select id="staffStatus">
+
+            <option value="Active">
+              Active
+            </option>
+
+            <option value="On Leave">
+              On Leave
+            </option>
+
+            <option value="Inactive">
+              Inactive
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- JOIN DATE -->
+
+        <div class="form-group">
+
+          <label for="staffJoinDate">
+            Joining date
+          </label>
+
+          <input
+            type="date"
+            id="staffJoinDate"
+          >
+
+        </div>
+
+
+
+        <!-- BUTTONS -->
+
+        <div
+          style="
+            display:flex;
+            justify-content:flex-end;
+            gap:10px;
+            margin-top:24px;
+          "
+        >
+
+          <button
+            type="button"
+            class="btn"
+            onclick="closeStaffForm()"
+          >
+            Cancel
+          </button>
+
+
+          <button
+            type="submit"
+            id="staffSubmitButton"
+            class="btn btn-primary"
+          >
+            Save Staff
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
