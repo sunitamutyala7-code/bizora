@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Bizora — Payments</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <a
+      href="dashboard.html"
+      class="dashboard-logo"
+    >
+      <span class="logo-mark">B</span>
+      <span>Bizora</span>
+    </a>
+
+
+    <nav class="dashboard-nav">
+
+      <a
+        href="dashboard.html"
+        class="nav-item"
+      >
+        <span>⌂</span>
+        Dashboard
+      </a>
+
+
+      <a
+        href="customers.html"
+        class="nav-item"
+      >
+        <span>👥</span>
+        Customers
+      </a>
+
+
+      <a
+        href="appointments.html"
+        class="nav-item"
+      >
+        <span>📅</span>
+        Appointments
+      </a>
+
+
+      <a
+        href="payments.html"
+        class="nav-item active"
+      >
+        <span>💳</span>
+        Payments
+      </a>
+
+
+      <a
+        href="#"
+        class="nav-item"
+      >
+        <span>📄</span>
+        Invoices
+      </a>
+
+
+      <a
+        href="#"
+        class="nav-item"
+      >
+        <span>📊</span>
+        Reports
+      </a>
+
+
+      <a
+        href="#"
+        class="nav-item"
+      >
+        <span>👤</span>
+        Staff
+      </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+      <a
+        href="#"
+        class="nav-item"
+      >
+        <span>⚙</span>
+        Settings
+      </a>
+
+
+      <button
+        class="logout-button"
+        onclick="logout()"
+      >
+        <span>↪</span>
+        Log out
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+
+  <main class="dashboard-main">
+
+    <header class="dashboard-header">
+
+      <div>
+
+        <h1>Payments</h1>
+
+        <p>
+          Track and manage your business payments.
+        </p>
+
+      </div>
+
+
+      <button
+        class="btn btn-primary"
+        onclick="openPaymentForm()"
+      >
+        + Add Payment
+      </button>
+
+    </header>
+
+
+    <!-- PAYMENT SUMMARY -->
+
+    <section class="dashboard-stats">
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+          <span>Total Revenue</span>
+          <div class="stat-icon">₹</div>
+        </div>
+
+        <strong id="paymentRevenue">
+          ₹0
+        </strong>
+
+      </div>
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+          <span>Payments</span>
+          <div class="stat-icon">💳</div>
+        </div>
+
+        <strong id="paymentCount">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+          <span>Completed</span>
+          <div class="stat-icon">✓</div>
+        </div>
+
+        <strong id="completedPayments">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+          <span>Pending</span>
+          <div class="stat-icon">⏳</div>
+        </div>
+
+        <strong id="pendingPayments">
+          0
+        </strong>
+
+      </div>
+
+    </section>
+
+
+    <!-- PAYMENTS LIST -->
+
+    <div class="dashboard-panel">
+
+      <div class="panel-header">
+
+        <div>
+
+          <h3>Payment History</h3>
+
+          <p>
+            Your recent business payments.
+          </p>
+
+        </div>
+
+
+        <input
+          type="search"
+          id="paymentSearch"
+          placeholder="Search payments..."
+          oninput="searchPayments()"
+        >
+
+      </div>
+
+
+      <div
+        id="paymentsList"
+        class="customers-list"
+      >
+
+        <p>
+          Loading payments...
+        </p>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+<!-- PAYMENT MODAL -->
+
+<div
+  id="paymentModal"
+  style="
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+    padding:20px;
+  "
+>
+
+  <div
+    style="
+      background:white;
+      width:100%;
+      max-width:520px;
+      padding:30px;
+      border-radius:20px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.18);
+    "
+  >
+
+    <div
+      style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:24px;
+      "
+    >
+
+      <div>
+
+        <h2
+          id="paymentModalTitle"
+          style="margin:0;"
+        >
+          Add Payment
+        </h2>
+
+        <p
+          style="
+            color:#667085;
+            margin:6px 0 0;
+          "
+        >
+          Record a customer payment.
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        onclick="closePaymentForm()"
+        style="
+          border:none;
+          background:none;
+          font-size:24px;
+          cursor:pointer;
+        "
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form id="paymentForm">
+
+
+      <!-- CUSTOMER -->
+
+      <div class="form-group">
+
+        <label for="paymentCustomer">
+          Customer name
+        </label>
+
+        <input
+          type="text"
+          id="paymentCustomer"
+          placeholder="Customer name"
+          required
+        >
+
+      </div>
+
+
+      <!-- AMOUNT -->
+
+      <div class="form-group">
+
+        <label for="paymentAmount">
+          Amount (₹)
+        </label>
+
+        <input
+          type="number"
+          id="paymentAmount"
+          placeholder="0.00"
+          min="0"
+          step="0.01"
+          required
+        >
+
+      </div>
+
+
+      <!-- METHOD -->
+
+      <div class="form-group">
+
+        <label for="paymentMethod">
+          Payment method
+        </label>
+
+        <select id="paymentMethod">
+
+          <option value="Cash">
+            Cash
+          </option>
+
+          <option value="UPI">
+            UPI
+          </option>
+
+          <option value="Card">
+            Card
+          </option>
+
+          <option value="Bank Transfer">
+            Bank Transfer
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- STATUS -->
+
+      <div class="form-group">
+
+        <label for="paymentStatus">
+          Payment status
+        </label>
+
+        <select id="paymentStatus">
+
+          <option value="Completed">
+            Completed
+          </option>
+
+          <option value="Pending">
+            Pending
+          </option>
+
+          <option value="Failed">
+            Failed
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- DATE -->
+
+      <div class="form-group">
+
+        <label for="paymentDate">
+          Payment date
+        </label>
+
+        <input
+          type="date"
+          id="paymentDate"
+          required
+        >
+
+      </div>
+
+
+      <!-- BUTTONS -->
+
+      <div
+        style="
+          display:flex;
+          justify-content:flex-end;
+          gap:10px;
+          margin-top:24px;
+        "
+      >
+
+        <button
+          type="button"
+          class="btn"
+          onclick="closePaymentForm()"
+        >
+          Cancel
+        </button>
+
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="paymentSubmitButton"
+        >
+          Save Payment
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
