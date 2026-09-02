@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Bizora — Settings</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- ==========================================
+       SIDEBAR
+  =========================================== -->
+
+  <aside class="sidebar">
+
+    <a href="dashboard.html" class="dashboard-logo">
+      <span class="logo-mark">B</span>
+      <span>Bizora</span>
+    </a>
+
+
+    <nav class="dashboard-nav">
+
+      <a href="dashboard.html" class="nav-item">
+        <span>⌂</span>
+        Dashboard
+      </a>
+
+      <a href="customers.html" class="nav-item">
+        <span>👥</span>
+        Customers
+      </a>
+
+      <a href="appointments.html" class="nav-item">
+        <span>📅</span>
+        Appointments
+      </a>
+
+      <a href="payments.html" class="nav-item">
+        <span>💳</span>
+        Payments
+      </a>
+
+      <a href="invoices.html" class="nav-item">
+        <span>📄</span>
+        Invoices
+      </a>
+
+      <a href="reports.html" class="nav-item">
+        <span>📊</span>
+        Reports
+      </a>
+
+      <a href="staff.html" class="nav-item">
+        <span>👤</span>
+        Staff
+      </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+      <a href="settings.html" class="nav-item active">
+        <span>⚙</span>
+        Settings
+      </a>
+
+      <button
+        class="logout-button"
+        onclick="logout()"
+      >
+        <span>↪</span>
+        Log out
+      </button>
+
+    </div>
+
+  </aside>
+
+
+
+  <!-- ==========================================
+       MAIN AREA
+  =========================================== -->
+
+  <main class="dashboard-main">
+
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+      <div>
+
+        <h1>Settings</h1>
+
+        <p>
+          Manage your Bizora account and business settings.
+        </p>
+
+      </div>
+
+    </header>
+
+
+
+    <!-- ==========================================
+         PROFILE SETTINGS
+    =========================================== -->
+
+    <div class="dashboard-panel">
+
+      <div class="panel-header">
+
+        <div>
+
+          <h3>
+            Profile Information
+          </h3>
+
+          <p>
+            Update your personal information.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <form id="profileSettingsForm">
+
+
+        <div
+          style="
+            display:grid;
+            grid-template-columns:repeat(2, minmax(0, 1fr));
+            gap:20px;
+          "
+        >
+
+
+          <!-- FULL NAME -->
+
+          <div class="form-group">
+
+            <label for="settingsFullName">
+              Full name
+            </label>
+
+            <input
+              type="text"
+              id="settingsFullName"
+              placeholder="Your full name"
+            >
+
+          </div>
+
+
+
+          <!-- EMAIL -->
+
+          <div class="form-group">
+
+            <label for="settingsEmail">
+              Email address
+            </label>
+
+            <input
+              type="email"
+              id="settingsEmail"
+              placeholder="you@example.com"
+              disabled
+            >
+
+          </div>
+
+
+
+          <!-- PHONE -->
+
+          <div class="form-group">
+
+            <label for="settingsPhone">
+              Phone number
+            </label>
+
+            <input
+              type="tel"
+              id="settingsPhone"
+              placeholder="Your phone number"
+            >
+
+          </div>
+
+
+
+          <!-- BUSINESS NAME -->
+
+          <div class="form-group">
+
+            <label for="settingsBusinessName">
+              Business name
+            </label>
+
+            <input
+              type="text"
+              id="settingsBusinessName"
+              placeholder="Your business name"
+            >
+
+          </div>
+
+        </div>
+
+
+        <div style="margin-top:20px;">
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save Profile
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         BUSINESS SETTINGS
+    =========================================== -->
+
+    <div class="dashboard-panel">
+
+      <div class="panel-header">
+
+        <div>
+
+          <h3>
+            Business Settings
+          </h3>
+
+          <p>
+            Configure your business information.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <form id="businessSettingsForm">
+
+
+        <div
+          style="
+            display:grid;
+            grid-template-columns:repeat(2, minmax(0, 1fr));
+            gap:20px;
+          "
+        >
+
+
+          <!-- BUSINESS NAME -->
+
+          <div class="form-group">
+
+            <label for="businessName">
+              Business name
+            </label>
+
+            <input
+              type="text"
+              id="businessName"
+              placeholder="Enter business name"
+            >
+
+          </div>
+
+
+
+          <!-- BUSINESS TYPE -->
+
+          <div class="form-group">
+
+            <label for="businessType">
+              Business type
+            </label>
+
+            <select id="businessType">
+
+              <option value="">
+                Select business type
+              </option>
+
+              <option value="Salon">
+                Salon
+              </option>
+
+              <option value="Consulting">
+                Consulting
+              </option>
+
+              <option value="Retail">
+                Retail
+              </option>
+
+              <option value="Restaurant">
+                Restaurant
+              </option>
+
+              <option value="Healthcare">
+                Healthcare
+              </option>
+
+              <option value="Education">
+                Education
+              </option>
+
+              <option value="Other">
+                Other
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- PHONE -->
+
+          <div class="form-group">
+
+            <label for="businessPhone">
+              Business phone
+            </label>
+
+            <input
+              type="tel"
+              id="businessPhone"
+              placeholder="Business phone"
+            >
+
+          </div>
+
+
+
+          <!-- WEBSITE -->
+
+          <div class="form-group">
+
+            <label for="businessWebsite">
+              Website
+            </label>
+
+            <input
+              type="url"
+              id="businessWebsite"
+              placeholder="https://example.com"
+            >
+
+          </div>
+
+        </div>
+
+
+
+        <!-- ADDRESS -->
+
+        <div class="form-group">
+
+          <label for="businessAddress">
+            Business address
+          </label>
+
+          <textarea
+            id="businessAddress"
+            rows="3"
+            placeholder="Enter business address"
+          ></textarea>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+        >
+          Save Business Settings
+        </button>
+
+      </form>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         PREFERENCES
+    =========================================== -->
+
+    <div class="dashboard-panel">
+
+      <div class="panel-header">
+
+        <div>
+
+          <h3>
+            Preferences
+          </h3>
+
+          <p>
+            Customize your Bizora experience.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+
+        <!-- EMAIL NOTIFICATIONS -->
+
+        <div
+          style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:16px 0;
+            border-bottom:1px solid #eaecf0;
+          "
+        >
+
+          <div>
+
+            <strong>
+              Email notifications
+            </strong>
+
+            <p
+              style="
+                margin:4px 0 0;
+                color:#667085;
+              "
+            >
+              Receive important account notifications.
+            </p>
+
+          </div>
+
+          <input
+            type="checkbox"
+            id="emailNotifications"
+            checked
+          >
+
+        </div>
+
+
+
+        <!-- APPOINTMENT REMINDERS -->
+
+        <div
+          style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:16px 0;
+            border-bottom:1px solid #eaecf0;
+          "
+        >
+
+          <div>
+
+            <strong>
+              Appointment reminders
+            </strong>
+
+            <p
+              style="
+                margin:4px 0 0;
+                color:#667085;
+              "
+            >
+              Receive reminders about upcoming appointments.
+            </p>
+
+          </div>
+
+          <input
+            type="checkbox"
+            id="appointmentReminders"
+            checked
+          >
+
+        </div>
+
+
+
+        <!-- PAYMENT NOTIFICATIONS -->
+
+        <div
+          style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:16px 0;
+          "
+        >
+
+          <div>
+
+            <strong>
+              Payment notifications
+            </strong>
+
+            <p
+              style="
+                margin:4px 0 0;
+                color:#667085;
+              "
+            >
+              Receive notifications when payments are received.
+            </p>
+
+          </div>
+
+          <input
+            type="checkbox"
+            id="paymentNotifications"
+            checked
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         SECURITY
+    =========================================== -->
+
+    <div class="dashboard-panel">
+
+      <div class="panel-header">
+
+        <div>
+
+          <h3>
+            Security
+          </h3>
+
+          <p>
+            Manage your account security.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          gap:20px;
+        "
+      >
+
+        <div>
+
+          <strong>
+            Password
+          </strong>
+
+          <p
+            style="
+              margin:5px 0 0;
+              color:#667085;
+            "
+          >
+            Change your account password.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="btn"
+          onclick="changePassword()"
+        >
+          Change Password
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         DANGER ZONE
+    =========================================== -->
+
+    <div
+      class="dashboard-panel"
+      style="
+        border:1px solid #fecdca;
+      "
+    >
+
+      <div class="panel-header">
+
+        <div>
+
+          <h3>
+            Account
+          </h3>
+
+          <p>
+            Manage your account session.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="btn"
+        onclick="logout()"
+      >
+        Log out
+      </button>
+
+    </div>
+
+  </main>
+
+
+
+  <!-- ==========================================
+       SUPABASE
+  =========================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
