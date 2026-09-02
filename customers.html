@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Bizora — Customers</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body class="dashboard-page">
+
+
+  <!-- ==========================================
+       SIDEBAR
+  =========================================== -->
+
+  <aside class="sidebar">
+
+    <a
+      href="dashboard.html"
+      class="dashboard-logo"
+    >
+      <span class="logo-mark">B</span>
+      <span>Bizora</span>
+    </a>
+
+
+    <nav class="dashboard-nav">
+
+      <a
+        href="dashboard.html"
+        class="nav-item"
+      >
+        <span>⌂</span>
+        Dashboard
+      </a>
+
+
+      <a
+        href="customers.html"
+        class="nav-item active"
+      >
+        <span>👥</span>
+        Customers
+      </a>
+
+
+      <a
+        href="appointments.html"
+        class="nav-item"
+      >
+        <span>📅</span>
+        Appointments
+      </a>
+
+
+      <a
+        href="payments.html"
+        class="nav-item"
+      >
+        <span>💳</span>
+        Payments
+      </a>
+
+
+      <a
+        href="#"
+        class="nav-item"
+      >
+        <span>📄</span>
+        Invoices
+      </a>
+
+
+      <a
+        href="#"
+        class="nav-item"
+      >
+        <span>📊</span>
+        Reports
+      </a>
+
+
+      <a
+        href="#"
+        class="nav-item"
+      >
+        <span>👤</span>
+        Staff
+      </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+      <a
+        href="#"
+        class="nav-item"
+      >
+        <span>⚙</span>
+        Settings
+      </a>
+
+
+      <button
+        class="logout-button"
+        onclick="logout()"
+      >
+        <span>↪</span>
+        Log out
+      </button>
+
+    </div>
+
+  </aside>
+
+
+
+  <!-- ==========================================
+       MAIN
+  =========================================== -->
+
+  <main class="dashboard-main">
+
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+      <div>
+
+        <h1>Customers</h1>
+
+        <p>
+          Manage your business customers.
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="openAddCustomerForm()"
+      >
+        + Add Customer
+      </button>
+
+    </header>
+
+
+
+    <!-- ==========================================
+         CUSTOMER PANEL
+    =========================================== -->
+
+    <div class="dashboard-panel">
+
+
+      <div class="panel-header">
+
+        <div>
+
+          <h3>
+            Your Customers
+          </h3>
+
+          <p id="customerCount">
+            Loading customers...
+          </p>
+
+        </div>
+
+
+        <input
+          type="search"
+          id="customerSearch"
+          placeholder="Search customers..."
+          oninput="searchCustomers()"
+        >
+
+      </div>
+
+
+
+      <!-- CUSTOMER LIST -->
+
+      <div
+        id="customersList"
+        class="customers-list"
+      >
+
+        <p>
+          Loading customers...
+        </p>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+
+  <!-- ==========================================
+       ADD CUSTOMER MODAL
+  =========================================== -->
+
+  <div
+    id="customerAddModal"
+    style="
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.45);
+      align-items:center;
+      justify-content:center;
+      z-index:1000;
+      padding:20px;
+    "
+  >
+
+    <div
+      style="
+        background:white;
+        width:100%;
+        max-width:520px;
+        padding:30px;
+        border-radius:20px;
+        box-shadow:0 20px 60px rgba(0,0,0,0.18);
+      "
+    >
+
+
+      <!-- MODAL HEADER -->
+
+      <div
+        style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          margin-bottom:24px;
+        "
+      >
+
+        <div>
+
+          <h2
+            style="
+              margin:0;
+            "
+          >
+            Add Customer
+          </h2>
+
+          <p
+            style="
+              color:#667085;
+              margin:6px 0 0;
+            "
+          >
+            Create a new customer profile.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          onclick="closeAddCustomerForm()"
+          style="
+            border:none;
+            background:none;
+            font-size:26px;
+            cursor:pointer;
+          "
+        >
+          ×
+        </button>
+
+      </div>
+
+
+
+      <!-- ADD FORM -->
+
+      <form id="customerForm">
+
+
+        <div class="form-group">
+
+          <label for="customerName">
+            Customer name
+          </label>
+
+          <input
+            type="text"
+            id="customerName"
+            placeholder="Enter customer name"
+            required
+          >
+
+        </div>
+
+
+
+        <div class="form-group">
+
+          <label for="customerEmail">
+            Email
+          </label>
+
+          <input
+            type="email"
+            id="customerEmail"
+            placeholder="customer@example.com"
+          >
+
+        </div>
+
+
+
+        <div class="form-group">
+
+          <label for="customerPhone">
+            Phone
+          </label>
+
+          <input
+            type="tel"
+            id="customerPhone"
+            placeholder="Phone number"
+          >
+
+        </div>
+
+
+
+        <div
+          style="
+            display:flex;
+            justify-content:flex-end;
+            gap:10px;
+            margin-top:24px;
+          "
+        >
+
+          <button
+            type="button"
+            class="btn"
+            onclick="closeAddCustomerForm()"
+          >
+            Cancel
+          </button>
+
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save Customer
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ==========================================
+       EDIT CUSTOMER MODAL
+  =========================================== -->
+
+  <div
+    id="customerEditModal"
+    style="
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.45);
+      align-items:center;
+      justify-content:center;
+      z-index:1100;
+      padding:20px;
+    "
+  >
+
+    <div
+      style="
+        background:white;
+        width:100%;
+        max-width:520px;
+        padding:30px;
+        border-radius:20px;
+        box-shadow:0 20px 60px rgba(0,0,0,0.18);
+      "
+    >
+
+
+      <!-- EDIT HEADER -->
+
+      <div
+        style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          margin-bottom:24px;
+        "
+      >
+
+        <div>
+
+          <h2
+            style="
+              margin:0;
+            "
+          >
+            Edit Customer
+          </h2>
+
+          <p
+            style="
+              color:#667085;
+              margin:6px 0 0;
+            "
+          >
+            Update customer information.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          onclick="closeCustomerEditForm()"
+          style="
+            border:none;
+            background:none;
+            font-size:26px;
+            cursor:pointer;
+          "
+        >
+          ×
+        </button>
+
+      </div>
+
+
+
+      <!-- EDIT FORM -->
+
+      <form id="customerEditForm">
+
+
+        <div class="form-group">
+
+          <label for="editCustomerName">
+            Customer name
+          </label>
+
+          <input
+            type="text"
+            id="editCustomerName"
+            required
+          >
+
+        </div>
+
+
+
+        <div class="form-group">
+
+          <label for="editCustomerEmail">
+            Email
+          </label>
+
+          <input
+            type="email"
+            id="editCustomerEmail"
+          >
+
+        </div>
+
+
+
+        <div class="form-group">
+
+          <label for="editCustomerPhone">
+            Phone
+          </label>
+
+          <input
+            type="tel"
+            id="editCustomerPhone"
+          >
+
+        </div>
+
+
+
+        <div
+          style="
+            display:flex;
+            justify-content:flex-end;
+            gap:10px;
+            margin-top:24px;
+          "
+        >
+
+          <button
+            type="button"
+            class="btn"
+            onclick="closeCustomerEditForm()"
+          >
+            Cancel
+          </button>
+
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Update Customer
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ==========================================
+       SUPABASE
+  =========================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="script.js"></script>
+
+
+</body>
+
+</html>
