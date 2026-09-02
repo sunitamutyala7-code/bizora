@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Bizora — Invoices</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- ==========================================
+       SIDEBAR
+  =========================================== -->
+
+  <aside class="sidebar">
+
+    <a href="dashboard.html" class="dashboard-logo">
+      <span class="logo-mark">B</span>
+      <span>Bizora</span>
+    </a>
+
+
+    <nav class="dashboard-nav">
+
+      <a href="dashboard.html" class="nav-item">
+        <span>⌂</span>
+        Dashboard
+      </a>
+
+      <a href="customers.html" class="nav-item">
+        <span>👥</span>
+        Customers
+      </a>
+
+      <a href="appointments.html" class="nav-item">
+        <span>📅</span>
+        Appointments
+      </a>
+
+      <a href="payments.html" class="nav-item">
+        <span>💳</span>
+        Payments
+      </a>
+
+      <a href="invoices.html" class="nav-item active">
+        <span>📄</span>
+        Invoices
+      </a>
+
+      <a href="reports.html" class="nav-item">
+        <span>📊</span>
+        Reports
+      </a>
+
+      <a href="staff.html" class="nav-item">
+        <span>👤</span>
+        Staff
+      </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+      <a href="settings.html" class="nav-item">
+        <span>⚙</span>
+        Settings
+      </a>
+
+      <button
+        class="logout-button"
+        onclick="logout()"
+      >
+        <span>↪</span>
+        Log out
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- ==========================================
+       MAIN AREA
+  =========================================== -->
+
+  <main class="dashboard-main">
+
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+      <div>
+
+        <h1>Invoices</h1>
+
+        <p>
+          Create and manage invoices for your customers.
+        </p>
+
+      </div>
+
+
+      <button
+        class="btn btn-primary"
+        onclick="openInvoiceForm()"
+      >
+        + New Invoice
+      </button>
+
+    </header>
+
+
+
+    <!-- ==========================================
+         INVOICE STATISTICS
+    =========================================== -->
+
+    <section class="dashboard-stats">
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+
+          <span>Total Invoices</span>
+
+          <div class="stat-icon">
+            📄
+          </div>
+
+        </div>
+
+        <strong id="totalInvoices">
+          0
+        </strong>
+
+        <div class="stat-change">
+          All invoices
+        </div>
+
+      </div>
+
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+
+          <span>Paid</span>
+
+          <div class="stat-icon">
+            ✓
+          </div>
+
+        </div>
+
+        <strong id="paidInvoices">
+          0
+        </strong>
+
+        <div class="stat-change positive-change">
+          Paid invoices
+        </div>
+
+      </div>
+
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+
+          <span>Pending</span>
+
+          <div class="stat-icon">
+            ⏳
+          </div>
+
+        </div>
+
+        <strong id="pendingInvoices">
+          0
+        </strong>
+
+        <div class="stat-change">
+          Awaiting payment
+        </div>
+
+      </div>
+
+
+
+      <div class="dashboard-stat">
+
+        <div class="stat-top">
+
+          <span>Total Amount</span>
+
+          <div class="stat-icon">
+            ₹
+          </div>
+
+        </div>
+
+        <strong id="invoiceTotalAmount">
+          ₹0
+        </strong>
+
+        <div class="stat-change">
+          Invoice value
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         INVOICE LIST
+    =========================================== -->
+
+    <div class="dashboard-panel">
+
+
+      <div class="panel-header">
+
+        <div>
+
+          <h3>
+            All Invoices
+          </h3>
+
+          <p id="invoiceCount">
+            No invoices yet
+          </p>
+
+        </div>
+
+
+        <input
+          type="search"
+          id="invoiceSearch"
+          placeholder="Search invoices..."
+          oninput="searchInvoices()"
+        >
+
+      </div>
+
+
+
+      <!-- INVOICE LIST -->
+
+      <div
+        id="invoicesList"
+        class="customers-list"
+      >
+
+        <div
+          style="
+            text-align:center;
+            padding:40px;
+            color:#667085;
+          "
+        >
+
+          <div
+            style="
+              font-size:42px;
+              margin-bottom:10px;
+            "
+          >
+            📄
+          </div>
+
+          <h3>
+            No invoices yet
+          </h3>
+
+          <p>
+            Create your first invoice to get started.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+
+  <!-- ==========================================
+       NEW / EDIT INVOICE MODAL
+  =========================================== -->
+
+  <div
+    id="invoiceModal"
+    style="
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.45);
+      align-items:center;
+      justify-content:center;
+      z-index:1000;
+      padding:20px;
+    "
+  >
+
+    <div
+      style="
+        background:white;
+        width:100%;
+        max-width:520px;
+        padding:30px;
+        border-radius:20px;
+        box-shadow:0 20px 60px rgba(0,0,0,0.18);
+        max-height:90vh;
+        overflow-y:auto;
+      "
+    >
+
+
+      <!-- MODAL HEADER -->
+
+      <div
+        style="
+          display:flex;
+          justify-content:space-between;
+          align-items:flex-start;
+          margin-bottom:24px;
+        "
+      >
+
+        <div>
+
+          <h2
+            id="invoiceModalTitle"
+            style="margin:0;"
+          >
+            New Invoice
+          </h2>
+
+          <p
+            id="invoiceModalDescription"
+            style="
+              color:#667085;
+              margin:6px 0 0;
+            "
+          >
+            Create an invoice for a customer.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          onclick="closeInvoiceForm()"
+          style="
+            border:none;
+            background:none;
+            font-size:26px;
+            cursor:pointer;
+          "
+        >
+          ×
+        </button>
+
+      </div>
+
+
+
+      <!-- INVOICE FORM -->
+
+      <form id="invoiceForm">
+
+
+        <!-- INVOICE NUMBER -->
+
+        <div class="form-group">
+
+          <label for="invoiceNumber">
+            Invoice number
+          </label>
+
+          <input
+            type="text"
+            id="invoiceNumber"
+            placeholder="INV-001"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- CUSTOMER -->
+
+        <div class="form-group">
+
+          <label for="invoiceCustomer">
+            Customer
+          </label>
+
+          <select
+            id="invoiceCustomer"
+            required
+          >
+
+            <option value="">
+              Select a customer
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- AMOUNT -->
+
+        <div class="form-group">
+
+          <label for="invoiceAmount">
+            Amount
+          </label>
+
+          <input
+            type="number"
+            id="invoiceAmount"
+            placeholder="0"
+            min="0"
+            step="0.01"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- DATE -->
+
+        <div class="form-group">
+
+          <label for="invoiceDate">
+            Invoice date
+          </label>
+
+          <input
+            type="date"
+            id="invoiceDate"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- DUE DATE -->
+
+        <div class="form-group">
+
+          <label for="invoiceDueDate">
+            Due date
+          </label>
+
+          <input
+            type="date"
+            id="invoiceDueDate"
+          >
+
+        </div>
+
+
+
+        <!-- STATUS -->
+
+        <div class="form-group">
+
+          <label for="invoiceStatus">
+            Status
+          </label>
+
+          <select id="invoiceStatus">
+
+            <option value="Pending">
+              Pending
+            </option>
+
+            <option value="Paid">
+              Paid
+            </option>
+
+            <option value="Overdue">
+              Overdue
+            </option>
+
+            <option value="Cancelled">
+              Cancelled
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- NOTES -->
+
+        <div class="form-group">
+
+          <label for="invoiceNotes">
+            Notes
+          </label>
+
+          <textarea
+            id="invoiceNotes"
+            placeholder="Additional notes..."
+            rows="3"
+          ></textarea>
+
+        </div>
+
+
+
+        <!-- BUTTONS -->
+
+        <div
+          style="
+            display:flex;
+            justify-content:flex-end;
+            gap:10px;
+            margin-top:24px;
+          "
+        >
+
+          <button
+            type="button"
+            class="btn"
+            onclick="closeInvoiceForm()"
+          >
+            Cancel
+          </button>
+
+
+          <button
+            type="submit"
+            id="invoiceSubmitButton"
+            class="btn btn-primary"
+          >
+            Save Invoice
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ==========================================
+       SUPABASE
+  =========================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
