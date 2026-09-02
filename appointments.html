@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Bizora — Appointments</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <a href="dashboard.html" class="dashboard-logo">
+      <span class="logo-mark">B</span>
+      <span>Bizora</span>
+    </a>
+
+    <nav class="dashboard-nav">
+
+      <a href="dashboard.html" class="nav-item">
+        <span>⌂</span>
+        Dashboard
+      </a>
+
+      <a href="customers.html" class="nav-item">
+        <span>👥</span>
+        Customers
+      </a>
+
+      <a href="appointments.html" class="nav-item active">
+        <span>📅</span>
+        Appointments
+      </a>
+
+      <a href="#" class="nav-item">
+        <span>💳</span>
+        Payments
+      </a>
+
+      <a href="#" class="nav-item">
+        <span>📄</span>
+        Invoices
+      </a>
+
+      <a href="#" class="nav-item">
+        <span>📊</span>
+        Reports
+      </a>
+
+      <a href="#" class="nav-item">
+        <span>👤</span>
+        Staff
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <a href="#" class="nav-item">
+        <span>⚙</span>
+        Settings
+      </a>
+
+      <button
+        class="logout-button"
+        onclick="logout()"
+      >
+        <span>↪</span>
+        Log out
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+
+  <main class="dashboard-main">
+
+    <header class="dashboard-header">
+
+      <div>
+
+        <h1>Appointments</h1>
+
+        <p>
+          Schedule and manage your business appointments.
+        </p>
+
+      </div>
+
+      <button
+        class="btn btn-primary"
+        onclick="openAppointmentForm()"
+      >
+        + New Appointment
+      </button>
+
+    </header>
+
+
+    <!-- APPOINTMENTS PANEL -->
+
+    <div class="dashboard-panel">
+
+      <div class="panel-header">
+
+        <div>
+
+          <h3>Appointments</h3>
+
+          <p id="appointmentCount">
+            Loading appointments...
+          </p>
+
+        </div>
+
+        <input
+          type="search"
+          id="appointmentSearch"
+          placeholder="Search appointments..."
+          oninput="searchAppointments()"
+        >
+
+      </div>
+
+
+      <div
+        id="appointmentsList"
+        class="appointments-list"
+      >
+
+        <p>
+          Loading appointments...
+        </p>
+
+      </div>
+
+    </div>
+
+  </main>
+
+                   <!-- APPOINTMENT MODAL -->
+  <!-- ==========================================
+     APPOINTMENT MODAL
+=========================================== -->
+
+<div
+  id="appointmentModal"
+  style="
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+    padding:20px;
+  "
+>
+
+  <div
+    style="
+      background:white;
+      width:100%;
+      max-width:500px;
+      padding:30px;
+      border-radius:20px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.18);
+    "
+  >
+
+    <!-- HEADER -->
+
+    <div
+      style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:24px;
+      "
+    >
+
+      <div>
+
+        <h2
+          id="appointmentModalTitle"
+          style="margin:0;"
+        >
+          New Appointment
+        </h2>
+
+        <p
+          id="appointmentModalDescription"
+          style="
+            color:#667085;
+            margin:6px 0 0;
+          "
+        >
+          Schedule an appointment for a customer.
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        onclick="closeAppointmentForm()"
+        style="
+          border:none;
+          background:none;
+          font-size:26px;
+          cursor:pointer;
+        "
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <form id="appointmentForm">
+
+
+      <!-- CUSTOMER -->
+
+      <div class="form-group">
+
+        <label for="appointmentCustomer">
+          Customer name
+        </label>
+
+       <select
+  id="appointmentCustomer"
+  required
+>
+  <option value="">
+    Select a customer
+  </option>
+</select>
+
+      </div>
+
+
+      <!-- SERVICE -->
+
+      <div class="form-group">
+
+        <label for="appointmentService">
+          Service
+        </label>
+
+        <input
+          type="text"
+          id="appointmentService"
+          placeholder="e.g. Consultation"
+          required
+        >
+
+      </div>
+
+
+      <!-- DATE -->
+
+      <div class="form-group">
+
+        <label for="appointmentDate">
+          Date
+        </label>
+
+        <input
+          type="date"
+          id="appointmentDate"
+          required
+        >
+
+      </div>
+
+
+      <!-- TIME -->
+
+      <div class="form-group">
+
+        <label for="appointmentTime">
+          Time
+        </label>
+
+        <input
+          type="time"
+          id="appointmentTime"
+          required
+        >
+
+      </div>
+
+
+      <!-- STATUS -->
+
+      <div class="form-group">
+
+        <label for="appointmentStatus">
+          Status
+        </label>
+
+        <select id="appointmentStatus">
+
+          <option value="Confirmed">
+            Confirmed
+          </option>
+
+          <option value="Pending">
+            Pending
+          </option>
+
+          <option value="Cancelled">
+            Cancelled
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- BUTTONS -->
+
+      <div
+        style="
+          display:flex;
+          justify-content:flex-end;
+          gap:10px;
+          margin-top:24px;
+        "
+      >
+
+        <button
+          type="button"
+          class="btn"
+          onclick="closeAppointmentForm()"
+        >
+          Cancel
+        </button>
+
+
+        <button
+          type="submit"
+          id="appointmentSubmitButton"
+          class="btn btn-primary"
+        >
+          Save Appointment
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
