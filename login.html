@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Bizora — Log In</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-page">
+
+  <div class="auth-container">
+
+    <!-- Logo -->
+    <a href="index.html" class="auth-logo">
+      <span class="logo-mark">B</span>
+      <span>Bizora</span>
+    </a>
+
+    <!-- Login Card -->
+    <div class="auth-card">
+
+      <div class="auth-heading">
+        <h1>Welcome back</h1>
+        <p>Log in to continue managing your business.</p>
+      </div>
+
+      <form id="loginForm">
+
+        <div class="form-group">
+          <label for="loginEmail">Email address</label>
+
+          <input
+            type="email"
+            id="loginEmail"
+            placeholder="you@example.com"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+
+          <div class="password-label">
+            <label for="loginPassword">Password</label>
+
+            <a href="#" onclick="forgotPassword(event)">
+              Forgot password?
+            </a>
+          </div>
+
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Enter your password"
+            required
+          >
+
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary auth-submit"
+        >
+          Log In →
+        </button>
+
+      </form>
+
+      <p class="auth-switch">
+        Don't have an account?
+        <a href="signup.html">Create an account</a>
+      </p>
+
+    </div>
+
+    <p class="auth-footer">
+      © 2026 Bizora. All rights reserved.
+    </p>
+
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
+```
